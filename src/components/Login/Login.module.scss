@@ -1,0 +1,24 @@
+@import '../../commonStyle/StyleCommon';
+
+.box{
+  width: 30%;
+  height: 60%;
+  border-radius: 20px;
+  background-color: #fff;
+
+  .container{
+    @include displayFlex(column,space-around,center);
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+
+    .title{
+      @include h2();
+      text-align: center;
+    }
+
+    .field{
+      width: 70%;
+    }
+  }
+}
