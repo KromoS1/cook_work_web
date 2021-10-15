@@ -1,29 +1,34 @@
-import React, {FC, memo} from "react";
 import {FormikProps, useFormik, withFormik} from "formik";
-import style from "./Login.module.scss";
+import React, {FC, memo} from "react";
+import * as Yup from "yup";
 import {Button, Paper, TextField} from "@material-ui/core";
-import {NavLink} from 'react-router-dom';
-import * as Yup from 'yup';
+import style from "./Registration.module.scss";
 
-export interface ValuesLoginType {
+
+export interface ValuesRegistrationType {
     email: string
     password: string
+    confirmPassword:string
+    company:boolean
 }
 
 interface FormFormikProps {
-    onSubmit: (formData: ValuesLoginType) => void
+    onSubmit: (formData: ValuesRegistrationType) => void
 }
 
-const Form: FC<FormFormikProps & FormikProps<ValuesLoginType>> = memo(props => {
+const Form: FC<FormFormikProps & FormikProps<ValuesRegistrationType>> = memo(props => {
 
     const formik = useFormik({
         initialValues: {
             email:props.initialValues.email,
-            password: props.initialValues.password,
+            password:props.initialValues.password,
+            confirmPassword:props.initialValues.confirmPassword,
+            company:props.initialValues.company,
         },
         validationSchema: Yup.object().shape({
             email: Yup.string().email('Invalid email').required('Required'),
             password: Yup.string().min(8, 'Must be 8 characters or more').required('Required'),
+            confirmPassword: Yup.string().oneOf([Yup.ref('password'),null],'Passwords must match'),
         }),
         onSubmit: values => {
             props.onSubmit(values)
@@ -31,10 +36,10 @@ const Form: FC<FormFormikProps & FormikProps<ValuesLoginType>> = memo(props => {
     })
 
     return (
-        <form name={'login'} onSubmit={formik.handleSubmit}>
+        <form name={'registration'} onSubmit={formik.handleSubmit}>
             <Paper elevation={10}>
                 <div className={style.container}>
-                    <h2 className={style.title}>Sign In to CookWork</h2>
+                    <h2 className={style.title}>Registration to CookWork</h2>
                     <TextField label={formik.errors.email ? "Error" : "Email"}
                                {...formik.getFieldProps("email")}
                                error={formik.errors.email !== undefined}
@@ -48,16 +53,16 @@ const Form: FC<FormFormikProps & FormikProps<ValuesLoginType>> = memo(props => {
                                helperText={formik.errors.password ? formik.errors.password : null}
                                variant={'outlined'}
                                className={style.field}/>
-                    <div className={style.forgot}>
-                        <span>Forgot Password</span>
-                    </div>
+                    <TextField label={formik.errors.confirmPassword ? 'Error' : 'Confirm Password'}
+                               type={"password"}
+                               {...formik.getFieldProps('confirmPassword')}
+                               error={formik.errors.confirmPassword !== undefined}
+                               helperText={formik.errors.confirmPassword ? formik.errors.confirmPassword : null}
+                               variant={'outlined'}
+                               className={style.field}/>
                     <Button type="submit" variant={"contained"} color={"primary"}>
-                        Sign In
+                        Sign Up
                     </Button>
-                    <div className={style.linkRegistration}>
-                        <span>Don't have an account?</span>
-                        <NavLink to={"/registration"}>Sign Up</NavLink>
-                    </div>
                 </div>
             </Paper>
         </form>
@@ -65,12 +70,13 @@ const Form: FC<FormFormikProps & FormikProps<ValuesLoginType>> = memo(props => {
     )
 });
 
-
-export const LoginForm = withFormik<FormFormikProps, ValuesLoginType>({
+export const RegistrationForm = withFormik<FormFormikProps, ValuesRegistrationType>({
     mapPropsToValues: props => {
         return {
             email: '',
             password: '',
+            confirmPassword:'',
+            company:false,
             onSubmit: props.onSubmit,
         };
     },

@@ -1,4 +1,4 @@
-import React, {FC, memo, useState,MouseEvent} from 'react';
+import React, {FC, memo, MouseEvent, useState} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,10 +13,13 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import style from './header.module.scss';
+import {useAppSelector} from "../../store/hooks";
+import {Linear} from "../../generalComponens/Linear";
 
 export const Header:FC = memo(() => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null);
+    const statusGeneral = useAppSelector(state => state.statusApp.statusGeneral);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -139,8 +142,7 @@ export const Header:FC = memo(() => {
                            <IconButton
                                size="large"
                                aria-label="show 17 new notifications"
-                               color="inherit"
-                           >
+                               color="inherit">
                                <Badge badgeContent={0} color="error">
                                    <NotificationsIcon />
                                </Badge>
@@ -152,8 +154,7 @@ export const Header:FC = memo(() => {
                                aria-controls={menuId}
                                aria-haspopup="true"
                                onClick={handleProfileMenuOpen}
-                               color="inherit"
-                           >
+                               color="inherit">
                                <AccountCircle />
                            </IconButton>
                        </Box>
@@ -164,12 +165,12 @@ export const Header:FC = memo(() => {
                                aria-controls={mobileMenuId}
                                aria-haspopup="true"
                                onClick={handleMobileMenuOpen}
-                               color="inherit"
-                           >
+                               color="inherit">
                                <MoreIcon />
                            </IconButton>
                        </Box>
                    </Toolbar>
+                   {statusGeneral && <Linear/>}
                </AppBar>
                {renderMobileMenu}
                {renderMenu}

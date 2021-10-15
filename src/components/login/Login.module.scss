@@ -1,25 +1,32 @@
 @import '../../commonStyle/StyleCommon';
 
-.box{
-  position: absolute;
-  width: 30%;
-  height: 60%;
-  border-radius: 20px;
-  z-index: 5;
+.box {
+  @include boxForLogAndReg();
 
-  .container{
-    @include displayFlex(column,space-around,center);
-    min-width: 100%;
-    min-height: 500px;
-    padding: 10px;
+  .container {
+    @include containerForLogAndReg();
 
-    .title{
+    .title {
       @include h2();
-      text-align: center;
     }
 
-    .field{
+    .field {
       width: 70%;
+    }
+
+    .forgot {
+      @include h6();
+      margin-bottom: 0;
+      cursor: pointer;
+      margin-right: 60px;
+      align-self: flex-end;
+    }
+
+    .linkRegistration {
+      @include h6();
+      margin-bottom: 0;
+      height: 50px;
+      @include displayFlex(column, space-around, center);
     }
   }
 }

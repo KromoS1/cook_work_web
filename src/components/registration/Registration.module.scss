@@ -1,0 +1,17 @@
+@import '../../commonStyle/StyleCommon';
+
+.box {
+  @include boxForLogAndReg();
+
+  .container {
+    @include containerForLogAndReg();
+
+    .title {
+      @include h2();
+    }
+
+    .field {
+      width: 70%;
+    }
+  }
+}

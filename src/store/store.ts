@@ -1,27 +1,17 @@
-import {combineReducers, configureStore} from "@reduxjs/toolkit";
-import {actionsStatusApp, statusAppReducer} from "./reducers/StatusAppReducer";
-import thunkMiddleware, {ThunkAction} from 'redux-thunk';
-
-const rootReducer = combineReducers({
-    statusApp:statusAppReducer
-})
+import {configureStore} from "@reduxjs/toolkit";
+import {statusAppReducer} from "./reducers/StatusAppReducer";
+import thunkMiddleware from 'redux-thunk';
+import {myAccountReducer} from "./reducers/MyAccountReducer";
 
 export const store = configureStore({
-    reducer:rootReducer,
-    middleware:getDefaultMiddleware =>getDefaultMiddleware().prepend(thunkMiddleware),
+    reducer:{
+        statusApp:statusAppReducer,
+        meAccount:myAccountReducer,
+    },
+    middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleware),
 })
 
-export const actions = {
-    ...actionsStatusApp,
-}
+export type StoreType = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
-type PropertiesType<T> = T extends { [key: string]: infer U } ? U : never
-export type ActionsType<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesType<T>>
-
-export type AppRootStateType = ReturnType<typeof rootReducer>;
-export type AppThunkType<ReturnType = void> =
-    ThunkAction<ReturnType,
-    AppRootStateType,
-    unknown,
-    ActionsType<typeof actions>>
 

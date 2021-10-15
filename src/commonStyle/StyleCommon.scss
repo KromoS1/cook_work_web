@@ -111,3 +111,18 @@ $ColorPrimary: #0d6efd;
   position: absolute;
   z-index: 1;
 }
+
+@mixin boxForLogAndReg{
+  position: absolute;
+  width: 30%;
+  height: 60%;
+  border-radius: 20px;
+  z-index: 5;
+}
+
+@mixin containerForLogAndReg{
+  @include displayFlex(column,space-around,center);
+  min-width: 100%;
+  min-height: 500px;
+  padding: 35px;
+}

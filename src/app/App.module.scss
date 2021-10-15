@@ -1,0 +1,25 @@
+@import '../commonStyle/StyleCommon';
+
+.page {
+  @include displayFlex(row, center, '');
+  width: 100vw;
+  height: 100vh;
+
+  .treeLeft {
+    background-image: url("https://good-food.cmsmasters.net/wp-content/uploads/2017/07/background.jpg");
+    @include tree();
+    left: 0;
+  }
+
+  .content {
+    @include displayFlex(row, center, center);
+    width: 88%;
+    height: 100%;
+  }
+
+  .treeRight {
+    background-image: url("https://good-food.cmsmasters.net/wp-content/uploads/2017/07/background.jpg");
+    @include tree();
+    right: 0;
+  }
+}
