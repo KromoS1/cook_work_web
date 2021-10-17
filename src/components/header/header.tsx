@@ -5,76 +5,49 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Badge from '@mui/material/Badge';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import {NavLink} from 'react-router-dom';
 import style from './header.module.scss';
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {Linear} from "../../generalComponens/Linear";
-import SettingsIcon from '@mui/icons-material/Settings';
-import LogoutIcon from '@mui/icons-material/Logout';
-import {ListItemIcon} from "@mui/material";
 import {logOutAcc} from "../../store/reducers/StatusAppReducer";
+import {MenuApp} from "./menu/MenuApp";
+import {MenuAcc} from "./menu/MenuAcc";
+
+export type MenuType = {
+    anchor:null | HTMLElement
+    isOpen:boolean
+    close: () => void
+}
 
 export const Header: FC = memo(() => {
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const [anchorElAcc, setAnchorElAcc] = useState<null | HTMLElement>(null);
+    const isMenuOpenAcc = Boolean(anchorElAcc);
+    const [anchorElApp, setAnchorElApp] = useState<null | HTMLElement>(null);
+    const isMenuOpenApp = Boolean(anchorElApp);
     const statusGeneral = useAppSelector(state => state.statusApp.statusGeneral);
     const dispatch = useAppDispatch();
 
     const logout = useCallback(() => {
-        setAnchorEl(null);
+        setAnchorElAcc(null);
         dispatch(logOutAcc());
     }, [dispatch])
 
-    const isMenuOpen = Boolean(anchorEl);
-
-    const handleProfileMenuOpen = useCallback((event: MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
+    const handleAccMenuOpen = useCallback((event: MouseEvent<HTMLElement>) => {
+        setAnchorElAcc(event.currentTarget);
+    }, []);
+    const handleMenuAccClose = useCallback(() => {
+        setAnchorElAcc(null);
     }, []);
 
-    const handleMenuClose = useCallback(() => {
-        setAnchorEl(null);
+    const handleAppMenuOpen = useCallback((event: MouseEvent<HTMLElement>) => {
+        setAnchorElApp(event.currentTarget);
     }, []);
-
-    const menuId = 'primary-search-account-menu';
-    const renderMenu = (
-        <Menu anchorEl={anchorEl}
-              anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-              }}
-              id={menuId}
-              keepMounted
-              transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-              }}
-              open={isMenuOpen}
-              onClose={handleMenuClose}>
-            <MenuItem onClick={handleMenuClose}>
-                <ListItemIcon>
-                    <AccountCircle/>
-                </ListItemIcon>
-                <NavLink to={'/my-account'}>My Account</NavLink>
-            </MenuItem>
-            <MenuItem onClick={handleMenuClose}>
-                <ListItemIcon>
-                    <SettingsIcon/>
-                </ListItemIcon>
-                <NavLink to={''}>Setting</NavLink>
-            </MenuItem>
-            <MenuItem onClick={logout}>
-                <ListItemIcon>
-                    <LogoutIcon/>
-                </ListItemIcon>
-                Log Out
-            </MenuItem>
-        </Menu>
-    );
+    const handleMenuAppClose = useCallback(() => {
+        setAnchorElApp(null);
+    }, []);
 
     return (
         <div className={style.box}>
@@ -82,10 +55,12 @@ export const Header: FC = memo(() => {
                 <AppBar position="static" className={style.bar}>
                     <Toolbar>
                         <IconButton
+                            aria-controls={'app-menu'}
                             size="large"
                             edge="start"
                             color="inherit"
                             aria-label="open drawer"
+                            onClick={handleAppMenuOpen}
                             sx={{mr: 4}}>
                             <MenuIcon/>
                         </IconButton>
@@ -115,9 +90,9 @@ export const Header: FC = memo(() => {
                                 size="large"
                                 edge="end"
                                 aria-label="account of current user"
-                                aria-controls={menuId}
+                                aria-controls={'account-menu'}
                                 aria-haspopup="true"
-                                onClick={handleProfileMenuOpen}
+                                onClick={handleAccMenuOpen}
                                 color="inherit">
                                 <AccountCircle/>
                             </IconButton>
@@ -125,7 +100,8 @@ export const Header: FC = memo(() => {
                     </Toolbar>
                     {statusGeneral && <Linear/>}
                 </AppBar>
-                {renderMenu}
+                <MenuApp isOpen={isMenuOpenApp} close={handleMenuAppClose} anchor={anchorElApp}/>
+                <MenuAcc isOpen={isMenuOpenAcc} close={handleMenuAccClose} anchor={anchorElAcc} logout={logout}/>
             </Box>
         </div>
     );

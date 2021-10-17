@@ -1,0 +1,25 @@
+@import '../../commonStyle/StyleCommon';
+
+.container {
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+
+  .title {
+    @include h2();
+  }
+
+  .form {
+    @include displayFlex(column, space-around, center);
+    flex-flow: wrap;
+    height: 94.5%;
+
+    .field {
+      width: 35%;
+    }
+
+    .button{
+      width: 35%;
+    }
+  }
+}

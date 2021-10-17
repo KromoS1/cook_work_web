@@ -40,20 +40,20 @@ const Form: FC<FormFormikProps & FormikProps<ValuesRegistrationType>> = memo(pro
             <Paper elevation={10}>
                 <div className={style.container}>
                     <h2 className={style.title}>Регистрация на CookWork</h2>
-                    <TextField label={formik.errors.email ? "Ошибка" : "Email"}
+                    <TextField label={"Email"}
                                {...formik.getFieldProps("email")}
                                error={formik.errors.email !== undefined}
                                helperText={formik.errors.email ? formik.errors.email : null}
                                variant={'outlined'}
                                className={style.field}/>
-                    <TextField label={formik.errors.password ? "Ошибка" : "Пароль"}
+                    <TextField label={"Пароль"}
                                type={"password"}
                                {...formik.getFieldProps("password")}
                                error={formik.errors.password !== undefined}
                                helperText={formik.errors.password ? formik.errors.password : null}
                                variant={'outlined'}
                                className={style.field}/>
-                    <TextField label={formik.errors.confirmPassword ? 'Ошибка' : 'Подтверждение пароля'}
+                    <TextField label={'Подтверждение пароля'}
                                type={"password"}
                                {...formik.getFieldProps('confirmPassword')}
                                error={formik.errors.confirmPassword !== undefined}

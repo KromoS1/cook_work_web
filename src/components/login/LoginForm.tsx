@@ -1,7 +1,7 @@
 import React, {FC, memo} from "react";
 import {FormikProps, useFormik, withFormik} from "formik";
 import style from "./Login.module.scss";
-import {Button, Checkbox, FormControlLabel, Paper, TextField} from "@material-ui/core";
+import {Button, Paper, TextField} from "@material-ui/core";
 import {NavLink} from 'react-router-dom';
 import * as Yup from 'yup';
 
@@ -35,13 +35,13 @@ const Form: FC<FormFormikProps & FormikProps<ValuesLoginType>> = memo(props => {
             <Paper elevation={10}>
                 <div className={style.container}>
                     <h2 className={style.title}>Войти на CookWork</h2>
-                    <TextField label={formik.errors.email ? "Ошибка" : "Email"}
+                    <TextField label={"Email"}
                                {...formik.getFieldProps("email")}
                                error={formik.errors.email !== undefined}
                                helperText={formik.errors.email ? formik.errors.email : null}
                                variant={'outlined'}
                                className={style.field}/>
-                    <TextField label={formik.errors.password ? "Ошибка" : "Пароль"}
+                    <TextField label={"Пароль"}
                                type={"password"}
                                {...formik.getFieldProps("password")}
                                error={formik.errors.password !== undefined}

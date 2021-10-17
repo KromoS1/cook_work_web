@@ -1,18 +1,19 @@
-import React, {FC, memo} from "react";
-import {FormikProps, useFormik, withFormik} from "formik";
-import style from './MyAccount.module.scss';
-import {Button, TextField} from "@material-ui/core";
-import * as Yup from 'yup';
+import React, {FC, memo} from 'react'
 import {MyAccountType} from "../../store/reducers/MyAccountReducer";
+import {FormikProps, useFormik, withFormik} from "formik";
+import * as Yup from "yup";
+import style from "./Resume.module.scss";
+import {Button, TextField} from "@material-ui/core";
 import {Autocomplete, InputAdornment} from "@mui/material";
-import city from '../../location/by-cities.json';
+import city from "../../location/by-cities.json";
+import {ResumeType} from "../../store/reducers/ResumeReducer";
 
 interface FormFormikProps {
     user: MyAccountType
-    onSubmit: (formData: MyAccountType) => void
+    onSubmit: (data: ResumeType) => void
 }
 
-const Form: FC<FormFormikProps & FormikProps<MyAccountType>> = memo(props => {
+const Form: FC<FormFormikProps & FormikProps<ResumeType>> = memo(props => {
 
     const formik = useFormik({
         initialValues: {
@@ -22,6 +23,11 @@ const Form: FC<FormFormikProps & FormikProps<MyAccountType>> = memo(props => {
             city: props.initialValues.city,
             numberPhone: props.initialValues.numberPhone,
             email: props.initialValues.email,
+            position: props.initialValues.position,
+            experience: props.initialValues.experience,
+            salary: props.initialValues.salary,
+            typeOfEmployment: props.initialValues.typeOfEmployment,
+            information: props.initialValues.information,
         },
         validationSchema: Yup.object().shape({
             firstName: Yup.string().required('Обязательное поле.'),
@@ -35,14 +41,14 @@ const Form: FC<FormFormikProps & FormikProps<MyAccountType>> = memo(props => {
     })
 
     return (
-        <form name={'myAccount'} onSubmit={formik.handleSubmit} className={style.form}>
-            <TextField label={formik.errors.firstName ? "Ошибка" : "Фамилия"}
+        <form name={'resume'} onSubmit={formik.handleSubmit} className={style.form}>
+            <TextField label={"Фамилия"}
                        {...formik.getFieldProps("firstName")}
                        error={formik.errors.firstName !== undefined}
                        helperText={formik.errors.firstName ? formik.errors.firstName : null}
                        variant={'outlined'}
                        className={style.field}/>
-            <TextField label={formik.errors.name ? "Ошибка" : "Имя"}
+            <TextField label={"Имя"}
                        {...formik.getFieldProps("name")}
                        error={formik.errors.name !== undefined}
                        helperText={formik.errors.name ? formik.errors.name : null}
@@ -59,13 +65,13 @@ const Form: FC<FormFormikProps & FormikProps<MyAccountType>> = memo(props => {
                                          label={formik.errors.city ? "Ошибка" : "Место жительства"}
                                          {...formik.getFieldProps("city")}
                                          variant={'outlined'}/>}/>
-            <TextField label={formik.errors.email ? "Ошибка" : "Email"}
+            <TextField label={"Email"}
                        {...formik.getFieldProps("email")}
                        error={formik.errors.email !== undefined}
                        helperText={formik.errors.email ? formik.errors.email : null}
                        variant={'outlined'}
                        className={style.field}/>
-            <TextField label={formik.errors.numberPhone ? "Ошибка" : "Номер телефона"}
+            <TextField label={"Номер телефона"}
                        {...formik.getFieldProps("numberPhone")}
                        error={formik.errors.numberPhone !== undefined}
                        helperText={formik.errors.numberPhone ? formik.errors.numberPhone : null}
@@ -74,16 +80,40 @@ const Form: FC<FormFormikProps & FormikProps<MyAccountType>> = memo(props => {
                            startAdornment: <InputAdornment position="start">+375</InputAdornment>,
                        }}
                        className={style.field}/>
-            <Button type="submit" variant={"contained"} color={"primary"}>
-                Сохранить
-            </Button>
+            <TextField label={"Должность"}
+                       {...formik.getFieldProps("position")}
+                       variant={'outlined'}
+                       className={style.field}/>
+            <TextField label={"Опыт работы"}
+                       {...formik.getFieldProps("experience")}
+                       variant={'outlined'}
+                       className={style.field}/>
+            <TextField label={"Уровень зарплаты"}
+                       {...formik.getFieldProps("salary")}
+                       variant={'outlined'}
+                       className={style.field}/>
+            <TextField label={"Тип занятости"}
+                       {...formik.getFieldProps("typeOfEmployment")}
+                       variant={'outlined'}
+                       className={style.field}/>
+            <TextField label={"Дополнительная информация"}
+                       {...formik.getFieldProps("information")}
+                       multiline
+                       rows={6}
+                       variant={'outlined'}
+                       className={style.field}/>
+            <div className={style.button}>
+                <Button type="submit" variant={"contained"} color={"primary"}>
+                    Создать
+                </Button>
+            </div>
         </form>
 
     )
 });
 
 
-export const MyAccountForm = withFormik<FormFormikProps, MyAccountType>({
+export const ResumeCreate = withFormik<FormFormikProps, ResumeType>({
     mapPropsToValues: props => {
         return {
             firstName: props.user.firstName || '',
@@ -92,6 +122,11 @@ export const MyAccountForm = withFormik<FormFormikProps, MyAccountType>({
             city: props.user.city || '',
             email: props.user.email || '',
             numberPhone: props.user.numberPhone || '',
+            position: '',
+            experience: '',
+            salary: '',
+            typeOfEmployment: '',
+            information: '',
             onSubmit: props.onSubmit,
         };
     },

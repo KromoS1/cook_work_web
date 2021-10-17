@@ -41,7 +41,7 @@ export const App = () => {
                             <Registration/>
                         </Suspense>
                     }}/>
-                    <Route path={'/resume'} render={() => {
+                    <Route exact path={'/resume'} render={() => {
                         return <Suspense fallback={<></>}>
                             <Resume/>
                         </Suspense>
