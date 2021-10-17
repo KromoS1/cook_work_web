@@ -1,0 +1,7 @@
+@import '../commonStyle/StyleCommon';
+
+.container{
+  @include displayFlex(row,center,center);
+  width: 100vw;
+  height: 100vh;
+}

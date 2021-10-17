@@ -7,11 +7,18 @@
     @include containerForLogAndReg();
 
     .title {
+      text-align: center;
+      font-size: 1rem;
       @include h2();
     }
 
     .field {
       width: 70%;
+    }
+
+    .check {
+      @include displayFlex(column,'',center);
+      @include h6();
     }
   }
 }

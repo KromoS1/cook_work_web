@@ -1,0 +1,83 @@
+@import '../../commonStyle/StyleCommon';
+
+.container {
+  @include displayFlex(column,center,center);
+  width: 100%;
+  height: 100%;
+
+  .logo {
+    width: 200px;
+    height: 200px;
+    margin-left: 180px;
+    transform: translate(-50%, -50%);
+
+    span {
+      display: block;
+      position: absolute;
+      width: 40%;
+      height: 40%;
+      border-radius: 50%;
+      box-shadow: 2px 2px 3px rgba(0, 0, 0, .4);
+      -webkit-animation: run 6s infinite ease-in-out;
+      animation: run 6s infinite ease-in-out;
+    }
+
+    .one {
+      background: url("../../source/cookIcon-one.svg");
+      -webkit-animation-delay: 4.5s;
+      animation-delay: 4.5s;
+    }
+
+    .two {
+      background: url("../../source/cookIkon-two.svg");
+      -webkit-animation-delay: 3s;
+      animation-delay: 3s;
+    }
+
+    .three {
+      background: url("../../source/cookIcon-three.svg");
+      -webkit-animation-delay: 1.5s;
+      animation-delay: 1.5s;
+    }
+
+    .four {
+      background: url("../../source/cookIcon-four.svg");
+    }
+  }
+  .welcome{
+    width: 75%;
+    text-align: center;
+    @include h3();
+  }
+
+}
+
+@-webkit-keyframes run {
+  0% {
+    transform: translate(0%);
+  }
+  25% {
+    transform: translate(150%);
+  }
+  50% {
+    transform: translate(150%, 150%);
+  }
+  75% {
+    transform: translate(0%, 150%);
+  }
+}
+
+@keyframes run {
+  0% {
+    transform: translate(0%);
+  }
+  25% {
+    transform: translate(150%);
+  }
+  50% {
+    transform: translate(150%, 150%);
+  }
+  75% {
+    transform: translate(0%, 150%);
+  }
+}

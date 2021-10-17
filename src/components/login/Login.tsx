@@ -15,7 +15,7 @@ export const Login: FC = memo(() => {
     },[dispatch])
 
     if (isAuth) {
-        return <Redirect to={'/user'}/>
+        return <Redirect to={'/'}/>
     }
 
     return (

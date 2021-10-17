@@ -23,6 +23,11 @@
     }
 
     .linkRegistration {
+      a {
+        color: $ColorPrimary;
+        text-decoration: none;
+      }
+
       @include h6();
       margin-bottom: 0;
       height: 50px;

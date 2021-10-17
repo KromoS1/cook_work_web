@@ -2,7 +2,7 @@
 
 .page {
   @include displayFlex(row, center, '');
-  width: 100vw;
+  min-width: 100vw;
   height: 100vh;
 
   .treeLeft {
@@ -12,7 +12,7 @@
   }
 
   .content {
-    @include displayFlex(row, center, center);
+    @include displayFlex(column, flex-start, center);
     width: 88%;
     height: 100%;
   }

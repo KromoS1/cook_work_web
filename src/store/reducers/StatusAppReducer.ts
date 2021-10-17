@@ -25,6 +25,15 @@ const initialState: StatusAppType = {
     message: '',
 }
 
+export const initializeApp = createAsyncThunk(
+    'statusApp/initializeApp',
+    async (_,{dispatch}) => {
+        setTimeout(() => {
+            dispatch(actionsStatusApp.setIsInit({isInit:true}))
+        },2000)
+    }
+)
+
 export const loginAccount = createAsyncThunk(
     'statusApp/login',
     async (dataLogin: ValuesLoginType, {dispatch}) => {
@@ -39,6 +48,13 @@ export const registrationAcc = createAsyncThunk(
         if (dataReg.company){
             dispatch(actionsStatusApp.setTypeAccount({typeAccount:'company'}));
         }
+    }
+)
+
+export const logOutAcc = createAsyncThunk(
+    'statusApp/logout',
+    async (_,{dispatch}) => {
+        dispatch(actionsStatusApp.setIsAuth({isAuth:false}));
     }
 )
 

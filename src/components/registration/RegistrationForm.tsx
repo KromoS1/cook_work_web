@@ -1,7 +1,7 @@
 import {FormikProps, useFormik, withFormik} from "formik";
 import React, {FC, memo} from "react";
 import * as Yup from "yup";
-import {Button, Paper, TextField} from "@material-ui/core";
+import {Button, Checkbox, FormControlLabel, Paper, TextField} from "@material-ui/core";
 import style from "./Registration.module.scss";
 
 
@@ -26,9 +26,9 @@ const Form: FC<FormFormikProps & FormikProps<ValuesRegistrationType>> = memo(pro
             company:props.initialValues.company,
         },
         validationSchema: Yup.object().shape({
-            email: Yup.string().email('Invalid email').required('Required'),
-            password: Yup.string().min(8, 'Must be 8 characters or more').required('Required'),
-            confirmPassword: Yup.string().oneOf([Yup.ref('password'),null],'Passwords must match'),
+            email: Yup.string().email('Некорректный Email').required('Обязательное полу'),
+            password: Yup.string().min(8, 'Пароль должен быть не менее 8 символов').required('Обязательное поле'),
+            confirmPassword: Yup.string().oneOf([Yup.ref('password'),null],'Пароли должны совпадать'),
         }),
         onSubmit: values => {
             props.onSubmit(values)
@@ -39,29 +39,35 @@ const Form: FC<FormFormikProps & FormikProps<ValuesRegistrationType>> = memo(pro
         <form name={'registration'} onSubmit={formik.handleSubmit}>
             <Paper elevation={10}>
                 <div className={style.container}>
-                    <h2 className={style.title}>Registration to CookWork</h2>
-                    <TextField label={formik.errors.email ? "Error" : "Email"}
+                    <h2 className={style.title}>Регистрация на CookWork</h2>
+                    <TextField label={formik.errors.email ? "Ошибка" : "Email"}
                                {...formik.getFieldProps("email")}
                                error={formik.errors.email !== undefined}
                                helperText={formik.errors.email ? formik.errors.email : null}
                                variant={'outlined'}
                                className={style.field}/>
-                    <TextField label={formik.errors.password ? "Error" : "Password"}
+                    <TextField label={formik.errors.password ? "Ошибка" : "Пароль"}
                                type={"password"}
                                {...formik.getFieldProps("password")}
                                error={formik.errors.password !== undefined}
                                helperText={formik.errors.password ? formik.errors.password : null}
                                variant={'outlined'}
                                className={style.field}/>
-                    <TextField label={formik.errors.confirmPassword ? 'Error' : 'Confirm Password'}
+                    <TextField label={formik.errors.confirmPassword ? 'Ошибка' : 'Подтверждение пароля'}
                                type={"password"}
                                {...formik.getFieldProps('confirmPassword')}
                                error={formik.errors.confirmPassword !== undefined}
                                helperText={formik.errors.confirmPassword ? formik.errors.confirmPassword : null}
                                variant={'outlined'}
                                className={style.field}/>
+                    <div className={style.check}>
+                        <span>Нажмите что бы создать аккаунт компании</span>
+                        <FormControlLabel label={'Компания'} control={
+                            <Checkbox color={"primary"} checked={formik.values.company}
+                                      {...formik.getFieldProps("company")}/>}/>
+                    </div>
                     <Button type="submit" variant={"contained"} color={"primary"}>
-                        Sign Up
+                        Зарегистироваться
                     </Button>
                 </div>
             </Paper>

@@ -1,7 +1,7 @@
 import React, {FC, memo} from "react";
 import {FormikProps, useFormik, withFormik} from "formik";
 import style from "./Login.module.scss";
-import {Button, Paper, TextField} from "@material-ui/core";
+import {Button, Checkbox, FormControlLabel, Paper, TextField} from "@material-ui/core";
 import {NavLink} from 'react-router-dom';
 import * as Yup from 'yup';
 
@@ -18,12 +18,12 @@ const Form: FC<FormFormikProps & FormikProps<ValuesLoginType>> = memo(props => {
 
     const formik = useFormik({
         initialValues: {
-            email:props.initialValues.email,
+            email: props.initialValues.email,
             password: props.initialValues.password,
         },
         validationSchema: Yup.object().shape({
-            email: Yup.string().email('Invalid email').required('Required'),
-            password: Yup.string().min(8, 'Must be 8 characters or more').required('Required'),
+            email: Yup.string().email('Некорректный Email').required('Обязательное поле'),
+            password: Yup.string().min(8, 'Пароль должен быть не менее 8 символов').required('Обязательное поле'),
         }),
         onSubmit: values => {
             props.onSubmit(values)
@@ -34,14 +34,14 @@ const Form: FC<FormFormikProps & FormikProps<ValuesLoginType>> = memo(props => {
         <form name={'login'} onSubmit={formik.handleSubmit}>
             <Paper elevation={10}>
                 <div className={style.container}>
-                    <h2 className={style.title}>Sign In to CookWork</h2>
-                    <TextField label={formik.errors.email ? "Error" : "Email"}
+                    <h2 className={style.title}>Войти на CookWork</h2>
+                    <TextField label={formik.errors.email ? "Ошибка" : "Email"}
                                {...formik.getFieldProps("email")}
                                error={formik.errors.email !== undefined}
                                helperText={formik.errors.email ? formik.errors.email : null}
                                variant={'outlined'}
                                className={style.field}/>
-                    <TextField label={formik.errors.password ? "Error" : "Password"}
+                    <TextField label={formik.errors.password ? "Ошибка" : "Пароль"}
                                type={"password"}
                                {...formik.getFieldProps("password")}
                                error={formik.errors.password !== undefined}
@@ -49,14 +49,14 @@ const Form: FC<FormFormikProps & FormikProps<ValuesLoginType>> = memo(props => {
                                variant={'outlined'}
                                className={style.field}/>
                     <div className={style.forgot}>
-                        <span>Forgot Password</span>
+                        <span>Забыли пароль</span>
                     </div>
                     <Button type="submit" variant={"contained"} color={"primary"}>
-                        Sign In
+                        Войти
                     </Button>
                     <div className={style.linkRegistration}>
-                        <span>Don't have an account?</span>
-                        <NavLink to={"/registration"}>Sign Up</NavLink>
+                        <span>Нет аккаунта?</span>
+                        <NavLink to={"/registration"}>Зарегистироваться</NavLink>
                     </div>
                 </div>
             </Paper>

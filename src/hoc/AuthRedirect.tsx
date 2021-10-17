@@ -1,9 +1,9 @@
 import React, {ComponentType} from 'react';
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {StoreType} from "../store/store";
+import { StoreType } from '../store/store';
 
-interface MapPropsType {
+type MapPropsType = {
     isAuth: boolean
 }
 
