@@ -6,8 +6,11 @@ import {NavLink} from "react-router-dom";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import Menu from "@mui/material/Menu";
 import {MenuType} from "../header";
+import {useAppSelector} from "../../../store/hooks";
 
 export const MenuApp: FC<MenuType> = memo(props => {
+
+    const typeAccount = useAppSelector(state => state.statusApp.typeAccount);
 
     return (
         <Menu anchorEl={props.anchor}
@@ -33,7 +36,11 @@ export const MenuApp: FC<MenuType> = memo(props => {
                 <ListItemIcon>
                     <ListAltIcon/>
                 </ListItemIcon>
-                <NavLink to={'/resume'}>Мое резюме</NavLink>
+                {
+                    typeAccount === 'seeker'
+                        ? <NavLink to={'/resume'}>Мое резюме</NavLink>
+                        : <NavLink to={'/vacancy'}>Моя вакансия</NavLink>
+                }
             </MenuItem>
         </Menu>
 

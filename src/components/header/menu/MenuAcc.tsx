@@ -32,7 +32,7 @@ export const MenuAcc: FC<MenuAccType> = memo(props => {
                 <ListItemIcon>
                     <AccountCircle/>
                 </ListItemIcon>
-                <NavLink to={'/my-account'}>Мой аккаунт</NavLink>
+                <NavLink to={'/account'}>Мой аккаунт</NavLink>
             </MenuItem>
             <MenuItem onClick={props.close}>
                 <ListItemIcon>

@@ -1,15 +1,8 @@
-import {MyAccountType} from "./MyAccountReducer";
+import {UserAccountType} from "./UserAccountReducer";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {GeneralDataSpeciality} from "./VacancyReducer";
 
-export type EmploymentType = 'Полная занятость' | 'Частичная занятость' | ''
-
-export interface ResumeType extends MyAccountType {
-    position: string
-    experience: string
-    salary: string
-    typeOfEmployment: EmploymentType
-    information: string
-}
+export type ResumeType = UserAccountType & GeneralDataSpeciality;
 
 const initialState: ResumeType = {
     firstName: '',

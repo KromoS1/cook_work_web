@@ -1,16 +1,14 @@
-import React, {ComponentType, FC, memo} from 'react'
-import {compose} from "redux";
-import {AuthRedirect} from "../../hoc/AuthRedirect";
+import React, {FC, memo} from 'react'
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {Redirect} from "react-router-dom";
 import style from './Resume.module.scss';
-import {ResumeCreate} from "./ResumeCreate";
+import {ResumeForm} from "./ResumeForm";
 import {ResumeType, setDataResume} from "../../store/reducers/ResumeReducer";
+import {options} from "../../store/reducers/VacancyReducer";
 
-
-const Resume: FC = () => {
+const Resume: FC = memo(() => {
     const isAuth = useAppSelector(state => state.statusApp.isAuth);
-    const user = useAppSelector(state => state.meAccount);
+    const user = useAppSelector(state => state.userAccount);
     const dispatch = useAppDispatch();
 
     if (!isAuth) return <Redirect to={'/login'}/>
@@ -22,9 +20,9 @@ const Resume: FC = () => {
     return (
         <div className={style.container}>
             <h2 className={style.title}>Резюме</h2>
-            <ResumeCreate user={user} onSubmit={submit}/>
+            <ResumeForm user={user} onSubmit={submit} options={options}/>
         </div>
     )
-}
+})
 
-export default compose<ComponentType>(AuthRedirect, memo)(Resume);
+export default Resume;

@@ -1,25 +1,24 @@
 import React, {FC, memo} from 'react'
-import {MyAccountType} from "../../store/reducers/MyAccountReducer";
 import {FormikProps, useFormik, withFormik} from "formik";
+import {VacancyType} from "../../store/reducers/VacancyReducer";
+import {CompanyAccountType} from "../../store/reducers/CompanyAccountReducer";
 import * as Yup from "yup";
-import style from "./Resume.module.scss";
+import style from "./Vacancy.module.scss";
 import {Button, TextField} from "@material-ui/core";
 import {Autocomplete, InputAdornment} from "@mui/material";
 import city from "../../location/by-cities.json";
-import {ResumeType} from "../../store/reducers/ResumeReducer";
 
 interface FormFormikProps {
-    user: MyAccountType
-    onSubmit: (data: ResumeType) => void
+    options: { name: string }[]
+    company: CompanyAccountType
+    onSubmit: (data: VacancyType) => void
 }
 
-const Form: FC<FormFormikProps & FormikProps<ResumeType>> = memo(props => {
+const Form: FC<FormFormikProps & FormikProps<VacancyType>> = memo(props => {
 
     const formik = useFormik({
         initialValues: {
-            firstName: props.initialValues.firstName,
-            name: props.initialValues.name,
-            dateOfBirth: props.initialValues.dateOfBirth,
+            nameCompany: props.initialValues.nameCompany,
             city: props.initialValues.city,
             numberPhone: props.initialValues.numberPhone,
             email: props.initialValues.email,
@@ -30,8 +29,7 @@ const Form: FC<FormFormikProps & FormikProps<ResumeType>> = memo(props => {
             information: props.initialValues.information,
         },
         validationSchema: Yup.object().shape({
-            firstName: Yup.string().required('Обязательное поле.'),
-            name: Yup.string().required('Обязательное поле.'),
+            nameCompany: Yup.string().required('Обязательное поле.'),
             email: Yup.string().email('Invalid email').required('Обязательное поле'),
             numberPhone: Yup.number().required('Обязательное поле'),
         }),
@@ -41,28 +39,17 @@ const Form: FC<FormFormikProps & FormikProps<ResumeType>> = memo(props => {
     })
 
     return (
-        <form name={'resume'} onSubmit={formik.handleSubmit} className={style.form}>
-            <TextField label={"Фамилия"}
-                       {...formik.getFieldProps("firstName")}
-                       error={formik.errors.firstName !== undefined}
-                       helperText={formik.errors.firstName ? formik.errors.firstName : null}
-                       variant={'outlined'}
-                       className={style.field}/>
-            <TextField label={"Имя"}
-                       {...formik.getFieldProps("name")}
-                       error={formik.errors.name !== undefined}
-                       helperText={formik.errors.name ? formik.errors.name : null}
-                       variant={'outlined'}
-                       className={style.field}/>
-            <TextField type={"date"}
-                       label={formik.errors.dateOfBirth ? "Ошибка" : ''}
-                       {...formik.getFieldProps("dateOfBirth")}
+        <form name={'vacancy'} onSubmit={formik.handleSubmit} className={style.form}>
+            <TextField label={"Название компании"}
+                       {...formik.getFieldProps("nameCompany")}
+                       error={formik.errors.nameCompany !== undefined}
+                       helperText={formik.errors.nameCompany ? formik.errors.nameCompany : null}
                        variant={'outlined'}
                        className={style.field}/>
             <Autocomplete className={style.field} freeSolo options={city.map((option) => option.name)}
                           renderInput={(params) =>
                               <TextField {...params}
-                                         label={formik.errors.city ? "Ошибка" : "Место жительства"}
+                                         label={"Город"}
                                          {...formik.getFieldProps("city")}
                                          variant={'outlined'}/>}/>
             <TextField label={"Email"}
@@ -91,11 +78,15 @@ const Form: FC<FormFormikProps & FormikProps<ResumeType>> = memo(props => {
             <TextField label={"Уровень зарплаты"}
                        {...formik.getFieldProps("salary")}
                        variant={'outlined'}
-                       className={style.field}/>
-            <TextField label={"Тип занятости"}
-                       {...formik.getFieldProps("typeOfEmployment")}
-                       variant={'outlined'}
-                       className={style.field}/>
+                       className={style.field}
+                       InputProps={{
+                           startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                       }}/>
+            <Autocomplete options={props.options.map(el => el.name)} className={style.field} renderInput={params =>
+                <TextField {...params}
+                           label={"Тип занятости"}
+                           {...formik.getFieldProps("typeOfEmployment")}
+                           variant={'outlined'}/>}/>
             <TextField label={"Дополнительная информация"}
                        {...formik.getFieldProps("information")}
                        multiline
@@ -108,20 +99,16 @@ const Form: FC<FormFormikProps & FormikProps<ResumeType>> = memo(props => {
                 </Button>
             </div>
         </form>
-
     )
 });
 
-
-export const ResumeCreate = withFormik<FormFormikProps, ResumeType>({
+export const VacancyForm = memo(withFormik<FormFormikProps, VacancyType>({
     mapPropsToValues: props => {
         return {
-            firstName: props.user.firstName || '',
-            name: props.user.name || '',
-            dateOfBirth: props.user.dateOfBirth || '',
-            city: props.user.city || '',
-            email: props.user.email || '',
-            numberPhone: props.user.numberPhone || '',
+            nameCompany:props.company.nameCompany || '',
+            city: props.company.city || '',
+            email: props.company.email || '',
+            numberPhone: props.company.numberPhone || '',
             position: '',
             experience: '',
             salary: '',
@@ -133,4 +120,4 @@ export const ResumeCreate = withFormik<FormFormikProps, ResumeType>({
     handleSubmit: (values, form) => {
         form.props.onSubmit(values);
     },
-})(Form);
+})(Form));

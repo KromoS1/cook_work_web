@@ -1,7 +1,6 @@
-import {actionsMyAccount, myAccountReducer, MyAccountType} from "../reducers/MyAccountReducer";
+import {actionsUserAccount, userAccountReducer, UserAccountType} from "../reducers/UserAccountReducer";
 
-
-let initialSate: MyAccountType
+let initialSate: UserAccountType
 
 beforeEach(() => {
     initialSate = {
@@ -15,7 +14,7 @@ beforeEach(() => {
 })
 
 test('correct set data user', () => {
-    const data = actionsMyAccount.setMyData(
+    const data = actionsUserAccount.setMyData(
         {
             firstName: 'Шавлинский',
             name: 'Роман',
@@ -25,7 +24,7 @@ test('correct set data user', () => {
             numberPhone: '297485875'
         })
 
-    const endState = myAccountReducer(initialSate, data);
+    const endState = userAccountReducer(initialSate, data);
     expect(endState).toBe(data.payload)
 })
 

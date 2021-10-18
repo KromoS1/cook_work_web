@@ -1,15 +1,18 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-export interface MyAccountType {
+export interface GeneralDataAccountType {
+    numberPhone: string
+    email: string
+    city: string
+}
+
+export interface UserAccountType extends GeneralDataAccountType{
     firstName: string
     name: string
     dateOfBirth: string
-    city: string
-    numberPhone: string
-    email: string
 }
 
-const initialState: MyAccountType = {
+const initialState: UserAccountType = {
     firstName: '',
     name: '',
     dateOfBirth: '',
@@ -20,8 +23,8 @@ const initialState: MyAccountType = {
 
 export const setDataUsers = createAsyncThunk(
     'myAccount/setDataUsers',
-    async (user:MyAccountType,{dispatch}) => {
-        dispatch(actionsMyAccount.setMyData(user));
+    async (user:UserAccountType, {dispatch}) => {
+        dispatch(actionsUserAccount.setMyData(user));
     }
 )
 
@@ -29,11 +32,11 @@ const slice = createSlice({
     name: 'myAccount',
     initialState,
     reducers: {
-        setMyData(state,action:PayloadAction<MyAccountType>){
+        setMyData(state,action:PayloadAction<UserAccountType>){
             return action.payload;
         }
     }
 })
 
-export const myAccountReducer = slice.reducer;
-export const actionsMyAccount = slice.actions
+export const userAccountReducer = slice.reducer;
+export const actionsUserAccount = slice.actions

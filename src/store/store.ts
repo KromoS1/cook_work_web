@@ -1,14 +1,18 @@
 import {configureStore} from "@reduxjs/toolkit";
 import {statusAppReducer} from "./reducers/StatusAppReducer";
 import thunkMiddleware from 'redux-thunk';
-import {myAccountReducer} from "./reducers/MyAccountReducer";
+import {userAccountReducer} from "./reducers/UserAccountReducer";
 import {resumeReducer} from "./reducers/ResumeReducer";
+import {vacancyReducer} from "./reducers/VacancyReducer";
+import {companyAccountReducer} from "./reducers/CompanyAccountReducer";
 
 export const store = configureStore({
     reducer:{
         statusApp:statusAppReducer,
-        meAccount:myAccountReducer,
+        userAccount:userAccountReducer,
+        companyAccount:companyAccountReducer,
         resume:resumeReducer,
+        vacancy:vacancyReducer,
     },
     middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleware),
 })

@@ -12,7 +12,7 @@ beforeEach(() => {
         city: '',
         position: '',
         experience: '',
-        salary: 0,
+        salary: '',
         typeOfEmployment: '',
         information: '',
     }
@@ -28,7 +28,7 @@ test('correct set data resume', () => {
         city: 'Минск',
         position: 'Повар',
         experience: '',
-        salary: 100,
+        salary: '100',
         typeOfEmployment: '',
         information: '',
     })
