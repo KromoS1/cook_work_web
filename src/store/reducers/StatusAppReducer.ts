@@ -18,7 +18,7 @@ export interface StatusAppType {
 const initialState: StatusAppType = {
     isInit: false,
     isAuth: false,
-    typeAccount:'company',
+    typeAccount:'seeker',
     statusApp: 'idle',
     statusGeneral: false,
     statusItem: false,

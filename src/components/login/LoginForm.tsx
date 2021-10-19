@@ -31,36 +31,34 @@ const Form: FC<FormFormikProps & FormikProps<ValuesLoginType>> = memo(props => {
     })
 
     return (
-        <form name={'login'} onSubmit={formik.handleSubmit}>
-            <Paper elevation={10}>
-                <div className={style.container}>
-                    <h2 className={style.title}>Войти на CookWork</h2>
-                    <TextField label={"Email"}
-                               {...formik.getFieldProps("email")}
-                               error={formik.errors.email !== undefined}
-                               helperText={formik.errors.email ? formik.errors.email : null}
-                               variant={'outlined'}
-                               className={style.field}/>
-                    <TextField label={"Пароль"}
-                               type={"password"}
-                               {...formik.getFieldProps("password")}
-                               error={formik.errors.password !== undefined}
-                               helperText={formik.errors.password ? formik.errors.password : null}
-                               variant={'outlined'}
-                               className={style.field}/>
-                    <div className={style.forgot}>
-                        <span>Забыли пароль</span>
-                    </div>
-                    <Button type="submit" variant={"contained"} color={"primary"}>
-                        Войти
-                    </Button>
-                    <div className={style.linkRegistration}>
-                        <span>Нет аккаунта?</span>
-                        <NavLink to={"/registration"}>Зарегистироваться</NavLink>
-                    </div>
+        <Paper elevation={10} className={style.paper}>
+            <form name={'login'} onSubmit={formik.handleSubmit} className={style.form}>
+                <h2 className={style.title}>Войти на CookWork</h2>
+                <TextField label={"Email"}
+                           {...formik.getFieldProps("email")}
+                           error={formik.errors.email !== undefined}
+                           helperText={formik.errors.email ? formik.errors.email : null}
+                           variant={'outlined'}
+                           className={style.field}/>
+                <TextField label={"Пароль"}
+                           type={"password"}
+                           {...formik.getFieldProps("password")}
+                           error={formik.errors.password !== undefined}
+                           helperText={formik.errors.password ? formik.errors.password : null}
+                           variant={'outlined'}
+                           className={style.field}/>
+                <div className={style.forgot}>
+                    <span>Забыли пароль</span>
                 </div>
-            </Paper>
-        </form>
+                <Button type="submit" variant={"contained"} color={"primary"}>
+                    Войти
+                </Button>
+                <div className={style.linkRegistration}>
+                    <span>Нет аккаунта?</span>
+                    <NavLink to={"/registration"}>Зарегистироваться</NavLink>
+                </div>
+            </form>
+        </Paper>
 
     )
 });

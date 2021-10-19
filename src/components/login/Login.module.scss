@@ -3,35 +3,44 @@
 .box {
   @include boxForLogAndReg();
 
-  .container {
-    @include containerForLogAndReg();
+  .paper{
+    height: 100%;
+    border-radius: 20px;
 
-    .title {
-      @include h2();
+    @media screen and (max-width: 500px){
+      border-radius: 0;
     }
 
-    .field {
-      width: 70%;
-    }
+    .form {
+      @include formForLogAndReg();
 
-    .forgot {
-      @include h6();
-      margin-bottom: 0;
-      cursor: pointer;
-      margin-right: 60px;
-      align-self: flex-end;
-    }
-
-    .linkRegistration {
-      a {
-        color: $ColorPrimary;
-        text-decoration: none;
+      .title {
+        @include h2();
       }
 
-      @include h6();
-      margin-bottom: 0;
-      height: 50px;
-      @include displayFlex(column, space-around, center);
+      .field {
+        width: 70%;
+      }
+
+      .forgot {
+        @include h6();
+        width: 70%;
+        margin-bottom: 0;
+        cursor: pointer;
+        text-align: right;
+      }
+
+      .linkRegistration {
+        a {
+          color: $ColorPrimary;
+          text-decoration: none;
+        }
+
+        @include h6();
+        margin-bottom: 0;
+        height: 50px;
+        @include displayFlex(column, space-around, center);
+      }
     }
   }
 }

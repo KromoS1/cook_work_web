@@ -21,7 +21,7 @@ const CompanyAccount:FC = memo(() => {
 
 return (
         <div className={style.container}>
-            <h2>Данные компании</h2>
+            <h2 className={style.title}>Данные компании</h2>
             <CompanyAccountForm company={company} onSubmit={submit}/>
         </div>
     )

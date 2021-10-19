@@ -11,6 +11,17 @@
     margin-left: 180px;
     transform: translate(-50%, -50%);
 
+    @media screen and (max-width:600px) {
+      width: 110px;
+      height: 110px;
+      margin-left: 110px;
+    }
+
+    @media screen and (min-width:600px) and (max-width: 1000px) {
+      width: 150px;
+      height: 150px;
+    }
+
     span {
       display: block;
       position: absolute;
@@ -48,8 +59,17 @@
     width: 75%;
     text-align: center;
     @include h3();
-  }
 
+    @media screen and (max-width: 600px) {
+      font-size: 1.2rem;
+      line-height: 1.4rem;
+    }
+
+    @media screen and (min-width: 600px) and (max-width: 1000px){
+      font-size: 1.6rem;
+      line-height: 2.0rem;
+    }
+  }
 }
 
 @-webkit-keyframes run {

@@ -60,7 +60,7 @@ const Form: FC<FormFormikProps & FormikProps<CompanyAccountType>> = memo(props =
                            startAdornment: <InputAdornment position="start">+375</InputAdornment>,
                        }}
                        className={style.field}/>
-            <Button type="submit" variant={"contained"} color={"primary"}>
+            <Button type="submit" variant={"contained"} color={"primary"} className={style.button}>
                 Сохранить
             </Button>
         </form>

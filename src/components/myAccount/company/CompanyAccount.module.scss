@@ -2,4 +2,8 @@
 
 .container {
   @include containerForm();
+
+  .form {
+    flex-flow: column;
+  }
 }

@@ -21,7 +21,7 @@ const UserAccount: FC = memo(() => {
 
     return (
         <div className={style.container}>
-            <h2>Мой аккаунт</h2>
+            <h2 className={style.title}>Мой аккаунт</h2>
             <UserAccountForm onSubmit={submit} user={user}/>
         </div>
     )

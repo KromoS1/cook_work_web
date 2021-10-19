@@ -3,22 +3,32 @@
 .box {
   @include boxForLogAndReg();
 
-  .container {
-    @include containerForLogAndReg();
+  .paper {
+    height: 100%;
+    border-radius: 20px;
 
-    .title {
-      text-align: center;
-      font-size: 1rem;
-      @include h2();
+    @media screen and (max-width: 500px) {
+      border-radius: 0;
     }
 
-    .field {
-      width: 70%;
-    }
+    .form {
+      @include formForLogAndReg();
 
-    .check {
-      @include displayFlex(column,'',center);
-      @include h6();
+      .title {
+        text-align: center;
+        font-size: 1rem;
+        @include h2();
+      }
+
+      .field {
+        width: 70%;
+      }
+
+      .check {
+        text-align: center;
+        @include displayFlex(column, '', center);
+        @include h6();
+      }
     }
   }
 }
