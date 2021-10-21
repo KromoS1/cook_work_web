@@ -28,6 +28,7 @@ export const Header: FC = memo(() => {
     const [anchorElApp, setAnchorElApp] = useState<null | HTMLElement>(null);
     const isMenuOpenApp = Boolean(anchorElApp);
     const statusGeneral = useAppSelector(state => state.statusApp.statusGeneral);
+    const isAuth = useAppSelector(state => state.statusApp.isAuth);
     const dispatch = useAppDispatch();
 
     const logout = useCallback(() => {
@@ -49,6 +50,8 @@ export const Header: FC = memo(() => {
         setAnchorElApp(null);
     }, []);
 
+    if (!isAuth) return <></>
+
     return (
         <div className={style.box}>
             <Box sx={{flexGrow: 1}}>
@@ -68,11 +71,11 @@ export const Header: FC = memo(() => {
                             variant="h6"
                             noWrap
                             component="div"
-                            sx={{display: {xs: 'none', sm: 'block'}}}>
+                            sx={{display: {sm: 'block'}}}>
                             CookWorks
                         </Typography>
                         <Box sx={{flexGrow: 1}}/>
-                        <Box sx={{display: {xs: 'none', md: 'flex'}}}>
+                        <Box sx={{display: {md: 'flex'}}}>
                             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                                 <Badge badgeContent={0} color="error">
                                     <MailIcon/>

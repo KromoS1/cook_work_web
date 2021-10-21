@@ -29,6 +29,10 @@
         @include displayFlex(column, '', center);
         @include h6();
       }
+
+      .button{
+        min-width:46%
+      }
     }
   }
 }

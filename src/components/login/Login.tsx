@@ -12,11 +12,9 @@ export const Login: FC = memo(() => {
 
     const submit = useCallback((formData: ValuesLoginType) => {
         dispatch(loginAccount(formData));
-    },[dispatch])
+    }, [dispatch])
 
-    if (isAuth) {
-        return <Redirect to={'/'}/>
-    }
+    if (isAuth) return <Redirect to={'/'}/>
 
     return (
         <div className={style.box}>

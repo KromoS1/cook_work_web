@@ -5,6 +5,10 @@
   width: 100%;
   justify-self: flex-start;
 
+  @media screen and (min-width: 1920px) {
+    width: 1689.6px;
+  }
+
   .bar {
     background-color: #ffffff;
     color: #090808;

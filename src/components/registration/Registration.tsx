@@ -14,9 +14,7 @@ const Registration:FC = memo(() => {
         dispatch(registrationAcc(formData));
     },[dispatch])
 
-    if (isAuth) {
-        return <Redirect to={'/'}/>
-    }
+    if (isAuth) return <Redirect to={'/'}/>
 
 return (
         <div className={style.box}>

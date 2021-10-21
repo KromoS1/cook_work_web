@@ -1,6 +1,6 @@
 import React, {lazy, useEffect} from 'react';
 import style from './App.module.scss';
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter as Router, Route} from "react-router-dom";
 import {Login} from "../components/login/Login";
 import {Header} from "../components/header/header";
 import {useAppDispatch, useAppSelector} from "../store/hooks";
@@ -10,6 +10,7 @@ import {Grid} from "@material-ui/core";
 import Box from "@mui/material/Box";
 import {HomePage} from "../components/homePage/HomePage";
 import {WithSuspense} from "../hoc/WithSuspense";
+import {ProtectedRote} from "./ProtectedRote";
 
 const UserAccount = lazy(() => import("../components/myAccount/user/UserAccount"));
 const CompanyAccount = lazy(() => import("../components/myAccount/company/CompanyAccount"));
@@ -27,32 +28,30 @@ export const App = () => {
         dispatch(initializeApp());
     }, [dispatch])
 
-    if (!isInit) {
-        return <Preloader/>
-    }
+    if (!isInit) return <Preloader/>
 
     return (
-        <BrowserRouter>
+        <Router>
             <Box className={style.page}>
                 <Grid item className={style.treeLeft}/>
                 <Grid item className={style.content}>
                     <Header/>
-                    <Route exact path={'/'} render={() => <HomePage/>}/>
-                    {
-                        typeAccount === 'seeker'
-                            ? <Route path={'/account'} render={WithSuspense(UserAccount)}/>
-                            : <Route path={'/account'} render={WithSuspense(CompanyAccount)}/>
-                    }
+                    <ProtectedRote exact path={'/'} component={HomePage}/>
                     <Route path={'/login'} render={() => <Login/>}/>
                     <Route path={'/registration'} render={WithSuspense(Registration)}/>
                     {
                         typeAccount === 'seeker'
-                            ? <Route exact path={'/resume'} render={WithSuspense(Resume)}/>
-                            : <Route exact path={'/vacancy'} render={WithSuspense(Vacancy)}/>
+                            ? <ProtectedRote path={'/account'} component={WithSuspense(UserAccount)}/>
+                            : <ProtectedRote path={'/account'} component={WithSuspense(CompanyAccount)}/>
+                    }
+                    {
+                        typeAccount === 'seeker'
+                            ? <ProtectedRote exact path={'/resume'} component={WithSuspense(Resume)}/>
+                            : <ProtectedRote exact path={'/vacancy'} component={WithSuspense(Vacancy)}/>
                     }
                 </Grid>
                 <Grid item className={style.treeRight}/>
             </Box>
-        </BrowserRouter>
+        </Router>
     );
 }

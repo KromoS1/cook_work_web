@@ -8,16 +8,11 @@ import {CompanyAccountForm} from "./CompanyAccountFrom";
 const CompanyAccount:FC = memo(() => {
 
     const company = useAppSelector(state => state.companyAccount);
-    const isAuth = useAppSelector(state => state.statusApp.isAuth);
     const dispatch = useAppDispatch();
 
     const submit = useCallback((data:CompanyAccountType) => {
         dispatch(setDataCompany(data));
     },[dispatch])
-
-    if (!isAuth) {
-        return <Redirect to={'/login'}/>
-    }
 
 return (
         <div className={style.container}>

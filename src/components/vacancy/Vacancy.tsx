@@ -7,13 +7,8 @@ import {VacancyForm} from "./VacancyForm";
 
 const Vacancy:FC = memo(() => {
 
-    const isAuth = useAppSelector(state => state.statusApp.isAuth);
     const company = useAppSelector(state => state.companyAccount);
     const dispatch = useAppDispatch();
-
-    if (!isAuth){
-        return <Redirect to={'/'}/>
-    }
 
     const submit = (data: VacancyType) => {
         dispatch(setDataVacancy(data));

@@ -64,7 +64,7 @@ const Form: FC<FormFormikProps & FormikProps<ValuesRegistrationType>> = memo(pro
                         <Checkbox color={"primary"} checked={formik.values.company}
                                   {...formik.getFieldProps("company")}/>}/>
                 </div>
-                <Button type="submit" variant={"contained"} color={"primary"}>
+                <Button type="submit" variant={"contained"} color={"primary"} className={style.button}>
                     Зарегистироваться
                 </Button>
             </form>

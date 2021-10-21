@@ -7,11 +7,9 @@ import {ResumeType, setDataResume} from "../../store/reducers/ResumeReducer";
 import {options} from "../../store/reducers/VacancyReducer";
 
 const Resume: FC = memo(() => {
-    const isAuth = useAppSelector(state => state.statusApp.isAuth);
+
     const user = useAppSelector(state => state.userAccount);
     const dispatch = useAppDispatch();
-
-    if (!isAuth) return <Redirect to={'/login'}/>
 
     const submit = (data: ResumeType) => {
         dispatch(setDataResume(data));

@@ -50,7 +50,7 @@ const Form: FC<FormFormikProps & FormikProps<ValuesLoginType>> = memo(props => {
                 <div className={style.forgot}>
                     <span>Забыли пароль</span>
                 </div>
-                <Button type="submit" variant={"contained"} color={"primary"}>
+                <Button type="submit" variant={"contained"} color={"primary"} className={style.button}>
                     Войти
                 </Button>
                 <div className={style.linkRegistration}>
